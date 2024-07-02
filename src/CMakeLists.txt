@@ -18,6 +18,12 @@ find_package(Threads)
 find_package(OpenMP)
 find_package(Vulkan REQUIRED)
 
+# OpenCV
+find_package(OpenCV REQUIRED)
+message(STATUS "OpenCV Libs: \n${OpenCV_LIBS}\n")
+message(STATUS "OpenCV Libraries: \n${OpenCV_LIBRARIES}\n")
+message(STATUS "OpenCV Headers: \n${OpenCV_INCLUDE_DIRS}\n")
+
 macro(waifu2x_add_shader SHADER_SRC)
     get_filename_component(SHADER_SRC_NAME_WE ${SHADER_SRC} NAME_WE)
     set(SHADER_COMP_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${SHADER_SRC_NAME_WE}.comp.hex.h)
@@ -34,7 +40,7 @@ macro(waifu2x_add_shader SHADER_SRC)
     list(APPEND SHADER_SPV_HEX_FILES ${SHADER_COMP_HEADER})
 endmacro()
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${OpenCV_INCLUDE_DIRS})
 
 if(OPENMP_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -246,7 +252,8 @@ waifu2x_add_shader(waifu2x_postproc_tta.comp)
 
 add_custom_target(generate-spirv DEPENDS ${SHADER_SPV_HEX_FILES})
 
-add_executable(waifu2x-ncnn-vulkan main.cpp waifu2x.cpp)
+# add_executable(waifu2x-ncnn-vulkan main.cpp waifu2x.cpp)
+add_executable(waifu2x-ncnn-vulkan read_camera.cpp waifu2x.cpp)
 
 add_dependencies(waifu2x-ncnn-vulkan generate-spirv)
 
@@ -274,4 +281,4 @@ if(USE_STATIC_MOLTENVK)
     )
 endif()
 
-target_link_libraries(waifu2x-ncnn-vulkan ${WAIFU2X_LINK_LIBRARIES})
+target_link_libraries(waifu2x-ncnn-vulkan ${WAIFU2X_LINK_LIBRARIES} ${OpenCV_LIBS})
