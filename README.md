@@ -136,6 +136,20 @@ Measure-Command { waifu2x-caffe-cui.exe -t 0 --gpu 0 -b 1 -c [block size] -p cud
 |waifu2x-ncnn-vulkan|4000x4000|8000x8000|400/200/100|11.16/11.29/12.07|1796/498/158|
 |waifu2x-caffe-cui|4000x4000|8000x8000|400/200/100|9.24/9.81/11.16|995/546/436|
 
+### comparison
+```powershell
+./waifu2x-ncnn-vulkan ../../models/models-upconv_7_photo/noise3_scale2.0x_model.param ../../models/models-upconv_7_photo/noise3_scale2.0x_model.bin 7
+./waifu2x-ncnn-vulkan ../../models/models-cunet/noise3_scale2.0x_model.param ../../models/models-cunet/noise3_scale2.0x_model.bin 18
+./waifu2x-ncnn-vulkan ../../models/models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.param ../../models/models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.bin 18
+```
+
+||Model|Target Size|Scale|Fps|CPU(%)|GPU(%)|
+|---|---|---|---|---|---|
+|upconv_7_photo/noise3_scale2.0x_model|640x480|2|7|80|97|
+|models-cunet/noise3_scale2.0x_model|640x480|2|2|90|97|
+|models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model|640x480|2|2|80|97|
+
+
 ## Sample Images
 
 ### Original Image
