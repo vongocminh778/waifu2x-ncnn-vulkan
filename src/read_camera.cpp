@@ -62,16 +62,14 @@ int calculate_tilesize(int gpuid) {
 }
 
 int main(int argc, char** argv) {
-    // const char* parampath = "../../models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.param";
-    // const char* modelpath = "../../models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.bin";
+    if (argc != 4) {
+        std::cerr << "Usage: " << argv[0] << " <parampath> <modelpath> <prepadding>" << std::endl;
+        return -1;
+    }
 
-    const char* parampath = "../../models-upconv_7_photo/noise3_scale2.0x_model.param";
-    const char* modelpath = "../../models-upconv_7_photo/noise3_scale2.0x_model.bin";
-    int prepadding = 7; // Default padding for SRMD
-
-    // const char* parampath = "../../models-cunet/noise3_scale2.0x_model.param";
-    // const char* modelpath = "../../models-cunet/noise3_scale2.0x_model.bin";
-    // int prepadding = 0; // Default padding for SRMD
+    const char* parampath = argv[1];
+    const char* modelpath = argv[2];
+    int prepadding = std::stoi(argv[3]);
     
     // Initialize SRMD
     ncnn::create_gpu_instance();
