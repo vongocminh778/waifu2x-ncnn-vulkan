@@ -143,7 +143,7 @@ Measure-Command { waifu2x-caffe-cui.exe -t 0 --gpu 0 -b 1 -c [block size] -p cud
 ./waifu2x-ncnn-vulkan ../../models/models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.param ../../models/models-upconv_7_anime_style_art_rgb/noise3_scale2.0x_model.bin 18
 ```
 
-||Model|Target Size|Scale|Fps|CPU(%)|GPU(%)|
+|Model|Target Size|Scale|Fps|CPU(%)|GPU(%)|
 |---|---|---|---|---|---|
 |upconv_7_photo/noise3_scale2.0x_model|640x480|2|7|80|97|
 |models-cunet/noise3_scale2.0x_model|640x480|2|2|90|97|
